@@ -1,30 +1,47 @@
-import React from 'react'
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import Starfield from "./Starfield";
+import Nav from "./Nav";
+import Footer from "./Footer";
+import Home from "./Home";
+import Terms from "./Terms";
+import Privacy from "./Privacy";
+
+function ScrollManager() {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      const id = hash.replace("#", "");
+      const timer = setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 80);
+      return () => clearTimeout(timer);
+    }
+    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+  }, [pathname, hash]);
+
+  return null;
+}
 
 export default function App() {
-  const path = window.location.pathname;
-
-  if (path === '/privacy') {
-    return (
-      <div style={{ padding: '40px', fontFamily: 'sans-serif' }}>
-        <h1>Privacy Policy</h1>
-        <p>Queen Nova respects your privacy. We do not sell or misuse your data.</p>
-      </div>
-    );
-  }
-
-  if (path === '/terms') {
-    return (
-      <div style={{ padding: '40px', fontFamily: 'sans-serif' }}>
-        <h1>Terms of Service</h1>
-        <p>Welcome to Queen Nova. By using our service, you agree to our terms.</p>
-      </div>
-    );
-  }
-
   return (
-    <div style={{ padding: '40px', fontFamily: 'sans-serif' }}>
-      <h1>Queen Nova</h1>
-      <p>Welcome to Queen Nova AI.</p>
-    </div>
+    <BrowserRouter>
+      <div className="grain relative min-h-screen">
+        <Starfield />
+        <ScrollManager />
+        <Nav />
+        <main className="relative">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }
