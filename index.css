@@ -1,0 +1,218 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── Queen Nova palette (Updated for Neon Cyan/Pink Branding) ── */
+  --color-void: #030208;
+  --color-abyss: #070612;
+  --color-panel: #0d0c1d;
+  --color-frost: #f2faff;
+  --color-mist: #9fbac2;
+  --color-dim: #6a828f;
+  
+  /* Neon Accents */
+  --color-nova-cyan: #00d2ff;
+  --color-nova-pink: #ff007f;
+  --color-nova-purple: #9d00ff;
+  
+  --color-iris: var(--color-nova-cyan);
+  --color-iris-soft: #a0ecff;
+  --color-iris-deep: #008ebf;
+  --color-gold: var(--color-nova-pink);
+  --color-gold-soft: #ff80bf;
+  
+  --color-line: rgba(0, 210, 255, 0.12);
+  --color-line-soft: rgba(255, 0, 127, 0.08);
+
+  /* ── Type system ──────────────────────────────────── */
+  --font-display: "Unbounded", system-ui, sans-serif;
+  --font-head: "Space Grotesk", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-void);
+  color: var(--color-frost);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(143, 124, 255, 0.35);
+  color: #fff;
+}
+
+/* ── Signature gradient text ────────────────────────── */
+.text-nova-gradient {
+  background: linear-gradient(100deg, #00d2ff 0%, #9d00ff 45%, #ff007f 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gold-gradient {
+  background: linear-gradient(100deg, #a0ecff 0%, #00d2ff 60%, #008ebf 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ── Glass panel ────────────────────────────────────── */
+.glass {
+  background: linear-gradient(160deg, rgba(21, 14, 44, 0.55), rgba(10, 6, 24, 0.65));
+  border: 1px solid var(--color-line);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.card {
+  background: linear-gradient(165deg, rgba(23, 15, 48, 0.5), rgba(11, 7, 25, 0.55));
+  border: 1px solid var(--color-line-soft);
+  transition:
+    border-color 0.45s ease,
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s ease;
+}
+.card:hover {
+  border-color: rgba(143, 124, 255, 0.38);
+  transform: translateY(-4px);
+  box-shadow:
+    0 18px 50px -18px rgba(91, 67, 214, 0.45),
+    inset 0 1px 0 rgba(183, 170, 255, 0.12);
+}
+
+.hairline {
+  background: linear-gradient(90deg, transparent, rgba(143, 124, 255, 0.4), transparent);
+  height: 1px;
+}
+
+/* ── Eyebrow label ──────────────────────────────────── */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-iris-soft);
+}
+
+/* ── Ambient nebula blobs ───────────────────────────── */
+.nebula {
+  position: fixed;
+  pointer-events: none;
+  border-radius: 9999px;
+  filter: blur(90px);
+  z-index: 0;
+}
+
+/* ── Film grain ─────────────────────────────────────── */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain-shift 9s steps(6) infinite;
+}
+
+/* ── Keyframes ──────────────────────────────────────── */
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes spin-rev {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes core-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scale(1.18);
+    opacity: 0.95;
+  }
+}
+@keyframes ping-ring {
+  0% {
+    transform: translate(-50%, -50%) scale(0.55);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.9);
+    opacity: 0;
+  }
+}
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes grain-shift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-4%, 3%);
+  }
+  40% {
+    transform: translate(3%, -5%);
+  }
+  60% {
+    transform: translate(-3%, -2%);
+  }
+  80% {
+    transform: translate(4%, 4%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 36s linear infinite;
+}
+.animate-float {
+  animation: float-y 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-marquee,
+  .animate-float,
+  .grain::after {
+    animation: none !important;
+  }
+}
