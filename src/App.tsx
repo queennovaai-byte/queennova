@@ -1,11 +1,11 @@
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import Starfield from "./Starfield";
-import Nav from "./Nav";
-import Footer from "./Footer";
-import Home from "./Home";
-import Terms from "./Terms";
-import Privacy from "./Privacy";
+import Starfield from "./components/Starfield";
+import Nav from "./components/Nav";
+import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import Terms from "./pages/Terms";
+import Privacy from "./pages/Privacy";
 
 function ScrollManager() {
   const { pathname, hash } = useLocation();
